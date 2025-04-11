@@ -3,6 +3,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const axios = require("axios");
 const path = require("path");
+const pathToRegexp = require("path-to-regexp");
 
 dotenv.config(); // Load environment variables from .env
 
@@ -16,6 +17,25 @@ app.use(cors({ origin: "http://localhost:3000" }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../client/build")));
 app.use(express.static(path.join(__dirname, "../client/public")));
+
+// Debugging middleware to log all incoming requests
+app.use((req, res, next) => {
+  console.log(`Incoming request: ${req.method} ${req.originalUrl}`);
+  next();
+});
+
+// Middleware to catch route definition errors
+app.use((req, res, next) => {
+  try {
+    // Example route validation (adjust as needed)
+    const route = "/example/:id";
+    pathToRegexp(route); // Validate route format
+    next();
+  } catch (error) {
+    console.error("Route definition error:", error.message);
+    res.status(500).send("Internal Server Error: Route definition issue");
+  }
+});
 
 const router = express.Router();
 
@@ -178,6 +198,7 @@ router.post("/create-book", async (req, res) => {
 });
 
 router.get("/get-book", async (req, res) => {
+  console.log("GET /get-book called with query:", req.query); // Debug log
   const { isbn } = req.query; // Extract `isbn` from query parameters
 
   try {
@@ -195,10 +216,12 @@ router.get("/get-book", async (req, res) => {
 
     // Check if the book exists
     if (response.data.results.length === 0) {
+      console.log("Book not found for ISBN:", isbn); // Debug log
       return res.status(404).json({ error: "Book not found" });
     }
 
     // Return the book data
+    console.log("Book found:", response.data.results[0]); // Debug log
     res.status(200).json(response.data.results[0]);
   } catch (error) {
     console.error(
@@ -239,7 +262,24 @@ router.patch("/update-book", async (req, res) => {
 // Define the API routes
 app.use(router);
 
+// Add a fallback for unmatched API routes
+app.all("/api/*", (req, res) => {
+  console.log("Unmatched API route:", req.originalUrl); // Debug log
+  res.status(404).json({ error: "API route not found" });
+});
+
+// Ensure this wildcard route is defined after all API routes
 app.get("*", (req, res) => {
+  console.log("Wildcard route called for URL:", req.originalUrl); // Debug log
+
+  // Exclude all API routes from being handled by the wildcard route
+  if (
+    req.originalUrl.startsWith("/api") ||
+    req.originalUrl.startsWith("/get-book")
+  ) {
+    return res.status(404).json({ error: "API route not found" });
+  }
+
   try {
     res.sendFile(path.join(__dirname, "../client/build", "index.html"));
   } catch (error) {
@@ -248,7 +288,8 @@ app.get("*", (req, res) => {
   }
 });
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+// Ensure all routes are properly defined
+app.get("/example/:id", (req, res) => {
+  const { id } = req.params;
+  res.send(`Example route with ID: ${id}`);
 });
