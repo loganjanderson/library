@@ -15,7 +15,6 @@ yarn-error.log*
 
 # Build output
 dist/
-# build/
 
 # Cache and temporary files
 .cache/
