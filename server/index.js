@@ -14,6 +14,7 @@ app.use(express.static(path.join(__dirname, "../client/build")));
 // Middleware
 app.use(cors({ origin: "http://localhost:3000" }));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "../client/build")));
 app.use(express.static(path.join(__dirname, "../client/public")));
 
 const router = express.Router();
@@ -239,7 +240,12 @@ router.patch("/update-book", async (req, res) => {
 app.use(router);
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+  try {
+    res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+  } catch (error) {
+    console.error("Error serving React app:", error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 // Start the server
