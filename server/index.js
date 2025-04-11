@@ -27,3 +27,8 @@ const router = express.Router();
 
 // Get the Baserow token from environment variables
 const BASEROW_TOKEN = process.env.BASEROW_TOKEN;
+
+// Ensure the server listens on the specified port
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
