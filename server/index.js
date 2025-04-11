@@ -6,7 +6,7 @@ const axios = require("axios");
 dotenv.config(); // Load environment variables from .env
 
 const app = express();
-const PORT = 5001;
+const PORT = process.env.PORT || 5001;
 
 // Middleware
 app.use(cors({ origin: "http://localhost:3000" }));
@@ -168,14 +168,6 @@ router.post("/create-book", async (req, res) => {
   }
 });
 
-// Define the API routes
-app.use("/", router);
-
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
-
 router.get("/get-book", async (req, res) => {
   const { isbn } = req.query; // Extract `isbn` from query parameters
 
@@ -233,4 +225,12 @@ router.patch("/update-book", async (req, res) => {
       error: "Failed to update book data",
     });
   }
+});
+
+// Define the API routes
+app.use("/", router);
+
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });

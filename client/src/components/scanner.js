@@ -12,7 +12,9 @@ const Scanner = () => {
   const getBookData = async (isbn) => {
     try {
       const response = await fetch(
-        `http://localhost:5001/get-book?isbn=${encodeURIComponent(isbn)}`,
+        `${
+          process.env.REACT_APP_BACKEND_URL
+        }/get-book?isbn=${encodeURIComponent(isbn)}`,
         {
           method: "GET",
           headers: {
@@ -36,17 +38,20 @@ const Scanner = () => {
 
   const handleCheckout = async () => {
     try {
-      const response = await fetch("http://localhost:5001/update-book", {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          bookId: bookData.id,
-          checkedOutCopies: bookData.checkedOutCopies + 1,
-          checkedOutBy: checkedOutName,
-        }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/update-book`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            bookId: bookData.id,
+            checkedOutCopies: bookData.checkedOutCopies + 1,
+            checkedOutBy: checkedOutName,
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

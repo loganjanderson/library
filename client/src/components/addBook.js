@@ -45,21 +45,24 @@ const AddBook = () => {
 
   const handleCreateBookData = async () => {
     try {
-      const response = await fetch("http://localhost:5001/create-book", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          authorName: author,
-          bookTitle: title,
-          bookImage: image,
-          copies: copies,
-          description: description,
-          isbn: isbn,
-          // categories: categories, // Commented out categories
-        }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/create-book`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            authorName: author,
+            bookTitle: title,
+            bookImage: image,
+            copies: copies,
+            description: description,
+            isbn: isbn,
+            // categories: categories, // Commented out categories
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`Error: ${response.statusText}`);
