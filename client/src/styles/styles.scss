@@ -1,0 +1,50 @@
+@import "./variables.scss";
+@import "../App.scss";
+@import "./header.scss";
+@import "./addBook.scss";
+
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap");
+
+h1,
+h2,
+h3,
+p,
+button,
+a {
+  color: $black;
+}
+
+a {
+  text-decoration: none;
+  font-size: 1em;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+button {
+  padding: 8px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: $light-green;
+
+  &:hover {
+    background-color: #9aac9b;
+  }
+}
+
+@media (max-width: $mobile-breakpoint) {
+  h1,
+  h2,
+  h3,
+  p,
+  button,
+  a {
+    font-size: 0.9em;
+  }
+
+  button {
+    padding: 6px 8px;
+  }
+}

@@ -1,0 +1,179 @@
+.scanner-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+
+  h1 {
+  }
+
+  .barcode-scanner {
+    border: solid black 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    width: 38%;
+    min-height: 395px;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    video {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .start-scanner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      h2 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 2.5em;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  button {
+    // ...
+  }
+
+  .book-info {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+
+    img {
+      width: 12%;
+      margin-bottom: 20px;
+    }
+
+    .line {
+      display: flex;
+      justify-content: space-between;
+      width: 30%;
+      align-items: center;
+
+      h3 {
+        font-family: "Cormorant Garamond", serif;
+      }
+
+      input {
+        height: fit-content;
+        padding: 8px 10px;
+        width: 65%;
+        max-width: 400px;
+      }
+    }
+  }
+
+  .form-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 30%;
+    margin-top: 20px;
+
+    button {
+      width: 30%;
+    }
+
+    button:hover {
+      cursor: pointer;
+    }
+  }
+
+  .categories-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+
+    .category-item {
+      display: flex;
+      align-items: center;
+      background-color: #f0f0f0;
+      padding: 5px 10px;
+      border-radius: 5px;
+
+      span {
+        margin-right: 10px;
+      }
+
+      button {
+        background-color: red;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        padding: 2px 5px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: darkred;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $mobile-breakpoint) {
+  .scanner-wrapper {
+    margin-top: 20px;
+
+    .barcode-scanner {
+      width: 90%;
+      min-height: 250px;
+
+      video {
+        border-radius: 5px;
+      }
+
+      .start-scanner h2 {
+        font-size: 1.8em;
+      }
+    }
+
+    .book-info {
+      img {
+        width: 20%;
+      }
+
+      .line {
+        width: 80%;
+
+        input {
+          width: 100%;
+        }
+      }
+    }
+
+    .form-buttons {
+      width: 80%;
+
+      button {
+        width: 40%;
+      }
+    }
+
+    .categories-list {
+      gap: 5px;
+
+      .category-item {
+        padding: 3px 5px;
+
+        button {
+          padding: 1px 3px;
+        }
+      }
+    }
+  }
+}
