@@ -3,7 +3,6 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const axios = require("axios");
 const path = require("path");
-const pathToRegexp = require("path-to-regexp");
 
 dotenv.config(); // Load environment variables from .env
 
@@ -27,4 +26,4 @@ app.use((req, res, next) => {
 const router = express.Router();
 
 // Get the Baserow token from environment variables
-const BASEROW_TOKEN = process;
+const BASEROW_TOKEN = process.env.BASEROW_TOKEN;
