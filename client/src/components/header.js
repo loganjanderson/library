@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Logo from "../images/logo.svg";
 import RoundLogo from "../images/logo-round.png";
-import { Link } from "react-router";
+import { Link } from "react-router-dom"; // Fix import
 import Modal from "react-modal";
 
 const Header = () => {
