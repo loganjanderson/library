@@ -9,6 +9,7 @@
     "react-router": "^7.3.0",
     "react-router-dom": "^7.3.0"
   },
+  "homepage": "https://anderson-family-library-26db909dc15c.herokuapp.com",
   "scripts": {
     "start": "node server/index.js"
   },
