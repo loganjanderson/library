@@ -33,6 +33,12 @@ app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
 });
 
+// Add error handling middleware
+app.use((err, req, res, next) => {
+  console.error("Error occurred:", err.message);
+  res.status(500).send("Internal Server Error");
+});
+
 // Ensure the server listens on the specified port
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
