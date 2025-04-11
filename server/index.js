@@ -20,6 +20,10 @@ const BASEROW_TOKEN = process.env.BASEROW_TOKEN;
 // Base URL for Baserow API
 const BASEROW_BASE_URL = "https://api.baserow.io/api/database/rows";
 
+app.get("/", (req, res) => {
+  res.send("Welcome to the Anderson Family Library API!");
+});
+
 router.post("/create-book", async (req, res) => {
   const {
     authorName,
@@ -228,9 +232,9 @@ router.patch("/update-book", async (req, res) => {
 });
 
 // Define the API routes
-app.use("/", router);
+app.use(router);
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
