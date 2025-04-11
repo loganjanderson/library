@@ -28,6 +28,11 @@ const router = express.Router();
 // Get the Baserow token from environment variables
 const BASEROW_TOKEN = process.env.BASEROW_TOKEN;
 
+// Serve React app for all non-API routes
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+});
+
 // Ensure the server listens on the specified port
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
